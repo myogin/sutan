@@ -312,7 +312,7 @@ var KTDatatablesExtensionButtons = function() {
 				{data: 'foto',render: function (data, type, row, meta) {
                     return '<div class="d-flex align-items-center">\
                                 <div class="symbol symbol-50 flex-shrink-0">\
-                                    <img src="http://localhost/skripsi/teja/public/storage/'+data+'"  alt="photo">\
+                                    <img src="http://localhost/skripsi/sutan/public/storage/'+data+'"  alt="photo">\
                                 </div>\
                             </div>\
                             ';
