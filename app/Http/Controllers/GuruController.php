@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Yajra\DataTables\Datatables;
-class SiswaController extends Controller
+class GuruController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class SiswaController extends Controller
     public function index()
     {
         //
-        return view('siswa.index');
+        return view('guru.index');
     }
 
     /**
@@ -26,7 +26,7 @@ class SiswaController extends Controller
     public function create()
     {
         //
-        return view('siswa.create');
+        return view('guru.create');
     }
 
     /**
@@ -39,26 +39,25 @@ class SiswaController extends Controller
     {
         //
         $validation = \Validator::make($request->all(),[
-            "nik" => "required|unique:siswa"
+            "nip" => "required|unique:guru"
         ])->validate();
 
-        $siswa = new \App\Siswa;
+        $guru = new \App\Guru;
 
-        $siswa->nik = $request->get('nik');
-        $siswa->nama = $request->get('name');
-        $siswa->tanggal_daftar =
+        $guru->nip = $request->get('nip');
+        $guru->nama = $request->get('name');
+        $guru->tanggal_daftar =
             date('Y-m-d', strtotime($request->get('date')));
-        $siswa->kelas = $request->get('kelas');
         if ($request->file('profile_avatar')) {
-            if ($siswa->foto && file_exists(storage_path('app/public/' . $siswa->foto))) {
-                \Storage::delete('public/' . $siswa->foto);
+            if ($guru->foto && file_exists(storage_path('app/public/' . $guru->foto))) {
+                \Storage::delete('public/' . $guru->foto);
             }
-            $file = $request->file('profile_avatar')->store('siswaFoto', 'public');
-            $siswa->foto = $file;
+            $file = $request->file('profile_avatar')->store('guruFoto', 'public');
+            $guru->foto = $file;
         }
-        $siswa->save();
+        $guru->save();
 
-        return redirect()->route('siswa.create')->with('status', 'siswa successfully created');
+        return redirect()->route('guru.create')->with('status', 'guru successfully created');
     }
 
     /**
@@ -82,9 +81,9 @@ class SiswaController extends Controller
     public function edit($id)
     {
         //
-        $siswa = \App\Siswa::findOrFail($id);
+        $guru = \App\Guru::findOrFail($id);
 
-        return view('siswa.edit', ['siswa' => $siswa]);
+        return view('guru.edit', ['guru' => $guru]);
     }
 
     /**
@@ -98,27 +97,26 @@ class SiswaController extends Controller
     {
         //
         $validation = \Validator::make($request->all(),[
-            "nik" => "required|unique:siswa,nik,".$id
+            "nip" => "required|unique:guru,nip,".$id
         ])->validate();
 
 
-        $siswa = \App\Siswa::findOrFail($id);
+        $guru = \App\Guru::findOrFail($id);
 
-        $siswa->nik = $request->get('nik');
-        $siswa->nama = $request->get('name');
-        $siswa->tanggal_daftar =
+        $guru->nip = $request->get('nip');
+        $guru->nama = $request->get('name');
+        $guru->tanggal_daftar =
             date('Y-m-d', strtotime($request->get('date')));
-        $siswa->kelas = $request->get('kelas');
         if ($request->file('profile_avatar')) {
-            if ($siswa->foto && file_exists(storage_path('app/public/' . $siswa->foto))) {
-                \Storage::delete('public/' . $siswa->foto);
+            if ($guru->foto && file_exists(storage_path('app/public/' . $guru->foto))) {
+                \Storage::delete('public/' . $guru->foto);
             }
-            $file = $request->file('profile_avatar')->store('siswaFoto', 'public');
-            $siswa->foto = $file;
+            $file = $request->file('profile_avatar')->store('guruFoto', 'public');
+            $guru->foto = $file;
         }
-        $siswa->save();
+        $guru->save();
 
-        return redirect()->route('siswa.edit', ['id' => $id])->with('status', 'Siswa successfully Updated');
+        return redirect()->route('guru.edit', ['id' => $id])->with('status', 'Guru successfully Updated');
     }
 
     /**
@@ -130,22 +128,22 @@ class SiswaController extends Controller
     public function destroy($id)
     {
         //
-        $siswa = \App\Siswa::findOrFail($id);
-        if ($siswa->avatar != NULL){
-            unlink(storage_path('app/public/' . $siswa->avatar));
+        $guru = \App\Guru::findOrFail($id);
+        if ($guru->avatar != NULL){
+            unlink(storage_path('app/public/' . $guru->avatar));
         }
 
-        $siswa->delete();
+        $guru->delete();
         return response()->json([
             'success' => 'sukses',
             'message' => 'Contact Deleted'
         ]);
     }
 
-    public function siswaJson()
+    public function guruJson()
     {
-        $siswa = \App\Siswa::orderBy('id', 'ASC')->get();
+        $guru = \App\Guru::orderBy('id', 'ASC')->get();
 
-        return Datatables::of($siswa)->make(true);
+        return Datatables::of($guru)->make(true);
     }
 }

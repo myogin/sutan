@@ -146,13 +146,11 @@
 
 										<div class="card card-custom example example-compact">
 											<div class="card-header">
-												<h3 class="card-title">Basic Validation</h3>
+												<h3 class="card-title">Form Guru</h3>
 											</div>
 											<!--begin::Form-->
-											<form class="form" id="kt_form_1" action="{{route('siswa.update', ['id'=>$siswa->id])}}" method="POST" enctype="multipart/form-data">
+											<form class="form" id="kt_form_1" action="{{route('guru.store')}}" method="POST" enctype="multipart/form-data">
                                                 @csrf
-                                                <input type="hidden" value="PUT" name="_method">
-
 												<div class="card-body">
                                                     <!--begin::ALLERT-->
                                                     @if(session('status'))
@@ -176,44 +174,27 @@
                                                     <div class="form-group row">
                                                         <label class="col-form-label text-right col-lg-3 col-sm-12">Tanggal</label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                                         <input type="text" value="{{old('date') ? old('date') : date('m/d/Y', strtotime($siswa->tanggal_daftar))}}" class="form-control" name="date" readonly placeholder="Select date" id='kt_datepicker'/>
+                                                         <input type="text" value="{{old('date')}}" class="form-control" name="date" readonly placeholder="Select date" id='kt_datepicker'/>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
 														<label class="col-form-label text-right col-lg-3 col-sm-12">NIK *</label>
 														<div class="col-lg-9 col-md-9 col-sm-12">
-															<input type="text" value="{{old('nik') ? old('nik') : $siswa->nik}}" class="form-control  {{$errors->first('nik') ? "is-invalid" : ""}}" name="nik" placeholder="Enter your name" />
-                                                            <div class="invalid-feedback">{{$errors->first('nik')}}</div>
+															<input type="text" value="{{old('nip')}}" class="form-control  {{$errors->first('nip') ? "is-invalid" : ""}}" name="nip" placeholder="Enter your name" />
+                                                            <div class="invalid-feedback">{{$errors->first('nip')}}</div>
                                                         </div>
 													</div>
                                                     <div class="form-group row">
 														<label class="col-form-label text-right col-lg-3 col-sm-12">Name *</label>
 														<div class="col-lg-9 col-md-9 col-sm-12">
-															<input type="text" value="{{old('name') ? old('name') : $siswa->nama}}" class="form-control" name="name" placeholder="Enter your name" />
+															<input type="text" value="{{old('name')}}" class="form-control" name="name" placeholder="Enter your name" />
 														</div>
 													</div>
-													<div class="form-group row">
-														<label class="col-form-label text-right col-lg-3 col-sm-12">Kelas *</label>
-														<div class="col-lg-9 col-md-9 col-sm-12">
-															<select class="form-control" name="kelas">
-																<option value="">Select</option>
-																<option {{$siswa->kelas == 'X' ? 'selected' : ''}} value="X">X</option>
-																<option {{$siswa->kelas == 'XI' ? 'selected' : ''}} value="XI">XI</option>
-																<option {{$siswa->kelas == 'XII' ? 'selected' : ''}} value="XII">XII</option>
-															</select>
-															<span class="form-text text-muted">Please select an option.</span>
-														</div>
-													</div>
-
                                                     <div class="form-group row">
                                                         <label class="col-xl-3 col-lg-3 col-form-label text-right">Foto</label>
                                                         <div class="col-lg-9 col-xl-6">
                                                             <div class="image-input image-input-outline" id="kt_image_1">
-                                                                @if ($siswa->foto!=null)
-                                                                <div class="image-input-wrapper" style="background-image: url('{{asset('storage/'.$siswa->foto)}}')"></div>
-                                                                @else
-                                                                <div class="image-input-wrapper" style="background-image: url('{{asset('media/default-user-image.png')}}')"></div>
-                                                                @endif
+                                                                <div class="image-input-wrapper" style="background-image:  url('{{asset('media/default-user-image.png')}}')"></div>
                                                                 <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
                                                                     <i class="fa fa-pen icon-sm text-muted"></i>
                                                                     <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg" />
@@ -254,7 +235,7 @@
 		<!--begin::Page Scripts(used by this page)-->
 		<script type="text/javascript">
         // Class definition
-        var KTFormControls = function () {
+var KTFormControls = function () {
 	// Private functions
 
     var validator;
@@ -262,8 +243,10 @@
     var _initWidgets = function() {
         // Initialize Plugins
         // Datepicker
+    $("#kt_datepicker").datepicker().datepicker("setDate", new Date());
         $('#kt_datepicker').datepicker({
             todayHighlight: true,
+            dateFormat:"dd-mm-yy",
             templates: {
                 leftArrow: '<i class=\"la la-angle-left\"></i>',
                 rightArrow: '<i class=\"la la-angle-right\"></i>'
@@ -273,6 +256,9 @@
             // Revalidate field
             validator.revalidateField('date');
         });
+        $('#kt_datepicker').datepicker({
+            dateFormat:"dd-mm-yy",
+        })
     }
 
 	var _initDemo1 = function () {
@@ -289,7 +275,7 @@
                             },
                         }
                     },
-					nik: {
+					nip: {
 						validators: {
 							notEmpty: {
 								message: 'Nik is required'
@@ -301,13 +287,6 @@
 						validators: {
 							notEmpty: {
 								message: 'Name is required'
-							}
-						}
-					},
-                    kelas: {
-						validators: {
-							notEmpty: {
-								message: 'Kelas is required'
 							}
 						}
 					},

@@ -220,7 +220,7 @@
 											</div>
 											<!--end::Dropdown-->
 											<!--begin::Button-->
-											<a href="{{route('siswa.create')}}" class="btn btn-primary font-weight-bolder">
+											<a href="{{route('guru.create')}}" class="btn btn-primary font-weight-bolder">
 											<span class="svg-icon svg-icon-md">
 												<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
 												<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -242,9 +242,8 @@
 												<tr>
 													<th>No</th>
 													<th>Foto</th>
-													<th>NIK</th>
+													<th>NIP</th>
 													<th>Nama</th>
-													<th>Kelas</th>
 													<th>Actions</th>
 												</tr>
 											</thead>
@@ -294,7 +293,7 @@ var KTDatatablesExtensionButtons = function() {
 			processing: true,
 			serverSide: true,
 			ajax: {
-                url: "{{route('json.siswa')}}",
+                url: "{{route('json.guru')}}",
 				// url: 'https://preview.keenthemes.com/metronic/theme/html/tools/preview/api/datatables/demos/default.php',
 				type: 'GET',
 				data: {
@@ -318,9 +317,8 @@ var KTDatatablesExtensionButtons = function() {
                             </div>\
                             ';
                 }},
-				{data: 'nik'},
+				{data: 'nip'},
 				{data: 'nama'},
-				{data: 'kelas'},
 				{data: 'id', responsivePriority: -1,render: function (data, type, row, meta) {
                     return '\
                     <a onclick="editData('+data+')" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" title="Edit details">\
@@ -404,7 +402,7 @@ function deleteData(id){
     }).then((result) => {
     if (result.value) {
         $.ajax({
-            url : "{{ url('siswa') }}/" + id,
+            url : "{{ url('guru') }}/" + id,
             type : "POST",
             data : {
                 '_method' : 'DELETE',
@@ -434,7 +432,7 @@ function deleteData(id){
 
 
     function editData(id) {
-        window.location = "{{ url('siswa') }}/" +id+"/edit";
+        window.location = "{{ url('guru') }}/" +id+"/edit";
 }
 
 

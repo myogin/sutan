@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Siswa extends Model
+class Guru extends Model
 {
     //
-    public $table = "siswa";
+    public $table = "guru";
 
     public function penilaian(){
         return $this->hasOne("App\Penilaian");

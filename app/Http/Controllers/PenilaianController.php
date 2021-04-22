@@ -17,10 +17,10 @@ class PenilaianController extends Controller
     public function index()
     {
         //
-        $siswa =\App\Siswa::All();
+        $guru =\App\Guru::All();
         $kriteria =\App\Kriteria::All();
         $subkriteria =\App\Subkriteria::All();
-        return view('penilaian.index',['siswa' => $siswa], ['kriteria' => $kriteria], ['subkriteria' => $subkriteria]);
+        return view('penilaian.index',['guru' => $guru], ['kriteria' => $kriteria], ['subkriteria' => $subkriteria]);
     }
 
     /**
@@ -31,9 +31,9 @@ class PenilaianController extends Controller
     public function create()
     {
         //
-        $siswa =\App\Siswa::All();
+        $guru =\App\Guru::All();
         $kriteria = \App\Kriteria::with('Subkriteria')->orderBy('id', 'ASC')->get();
-        return view('penilaian.create' ,['siswa' => $siswa], ['kriteria' => $kriteria]);
+        return view('penilaian.create' ,['guru' => $guru], ['kriteria' => $kriteria]);
     }
 
     /**
@@ -51,7 +51,7 @@ class PenilaianController extends Controller
 
 
         $penilaian = new \App\Penilaian;
-        $penilaian->siswa_id = $request->get('siswa');
+        $penilaian->guru_id = $request->get('guru');
         $penilaian->total_score = 0;
         $penilaian->save();
         $penilaian_id = $penilaian->id;
@@ -148,17 +148,17 @@ class PenilaianController extends Controller
     public function penilaianJson()
     {
         // $penilaian =DB::table('penilaian')
-        // ->join('siswa', 'siswa.id', '=', 'penilaian.siswa_id')
+        // ->join('guru', 'guru.id', '=', 'penilaian.guru_id')
         // ->join('subkriteria', 'subkriteria.id', '=', 'penilaian.subkriteria_id')
         // ->join('kriteria', 'kriteria.id', '=', 'subkriteria.kriteria_id')
-        // // ->select('siswa.nama')
+        // // ->select('guru.nama')
         // // ->selectRaw('sum(subkriteria.nilai * kriteria.bobot) as total')
-        // // ->groupBy('siswa.nama')
+        // // ->groupBy('guru.nama')
         // ->get();
 
 
 
-        $penilaian = \App\Penilaian::with('siswa')->orderBy('id', 'ASC')->get();
+        $penilaian = \App\Penilaian::with('guru')->orderBy('id', 'ASC')->get();
 
         return Datatables::of($penilaian)->make(true);
     }

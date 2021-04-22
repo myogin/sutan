@@ -15,11 +15,11 @@ class CreatePenilaianTable extends Migration
     {
         Schema::create('penilaian', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('siswa_id')->unsigned();
+            $table->bigInteger('guru_id')->unsigned();
             $table->integer('total_score');
             $table->timestamps();
 
-            $table->foreign('siswa_id')->references('id')->on('siswa');
+            $table->foreign('guru_id')->references('id')->on('guru');
         });
     }
 

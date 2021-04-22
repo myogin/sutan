@@ -25,8 +25,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource("users", "UserController");
 Route::get('/json/users', 'UserController@userJson')->name("json.user");
 
-Route::resource("siswa", "SiswaController");
-Route::get('/json/siswa', 'SiswaController@siswaJson')->name("json.siswa");
+Route::resource("guru", "GuruController");
+Route::get('/json/guru', 'GuruController@guruJson')->name("json.guru");
 
 Route::resource("kriteria", "KriteriaController");
 Route::get('/json/kriteria', 'KriteriaController@kriteriaJson')->name("json.kriteria");

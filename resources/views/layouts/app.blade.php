@@ -165,7 +165,7 @@
 										</ul>
 									</div>
 								</li>
-                                <li class="menu-item menu-item-submenu {{ (request()->is('siswa*')) ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                                <li class="menu-item menu-item-submenu {{ (request()->is('guru*')) ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
 									<a href="javascript:;" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Shopping/Box2.svg-->
@@ -178,7 +178,7 @@
                                             </svg>
 											<!--end::Svg Icon-->
 										</span>
-										<span class="menu-text">Siswa</span>
+										<span class="menu-text">Guru</span>
 										<i class="menu-arrow"></i>
 									</a>
 									<div class="menu-submenu">
@@ -186,11 +186,11 @@
 										<ul class="menu-subnav">
 											<li class="menu-item menu-item-parent" aria-haspopup="true">
 												<span class="menu-link">
-													<span class="menu-text">Siswa</span>
+													<span class="menu-text">Guru</span>
 												</span>
 											</li>
 											<li class="menu-item" aria-haspopup="true">
-												<a href="{{route('siswa.index')}}" class="menu-link">
+												<a href="{{route('guru.index')}}" class="menu-link">
 													<i class="menu-bullet menu-bullet-dot">
 														<span></span>
 													</i>
@@ -198,7 +198,7 @@
 												</a>
 											</li>
 											<li class="menu-item" aria-haspopup="true">
-												<a href="{{route('siswa.create')}}" class="menu-link">
+												<a href="{{route('guru.create')}}" class="menu-link">
 													<i class="menu-bullet menu-bullet-dot">
 														<span></span>
 													</i>
